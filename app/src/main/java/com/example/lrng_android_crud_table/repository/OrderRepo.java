@@ -107,7 +107,7 @@ public class OrderRepo extends DatabaseHandler {
 
         String where = "id = ?";
 
-        String[] whereArgs = { Integer.toString(orderToUpdate.getId()) };
+        String[] whereArgs = {Integer.toString(orderToUpdate.getId())};
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -115,5 +115,15 @@ public class OrderRepo extends DatabaseHandler {
         db.close();
 
         return updateSuccessful;
+    }
+
+    public boolean delete(int id) {
+        boolean deleteSuccessful = false;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        deleteSuccessful = db.delete("orders", "id ='" + id + "'", null) > 0;
+        db.close();
+
+        return deleteSuccessful;
     }
 }

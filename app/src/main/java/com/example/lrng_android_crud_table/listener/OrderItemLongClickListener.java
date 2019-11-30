@@ -31,12 +31,24 @@ public class OrderItemLongClickListener implements View.OnLongClickListener {
                     public void onClick(DialogInterface dialog, int item) {
                         if (item == 0) {
                             editRecord(orderId);
+                        } else if (item == 1) {
+                            deleteRecord(orderId);
                         }
                         context.updateData();
                         dialog.dismiss();
                     }
                 }).show();
         return false;
+    }
+
+    private void deleteRecord(Integer orderId) {
+        boolean deleted = new OrderRepo(context).delete(orderId);
+
+        if (deleted) {
+            Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT);
+        } else {
+            Toast.makeText(context, "Problem occurred during order deleting", Toast.LENGTH_SHORT);
+        }
     }
 
     private void editRecord(final Integer orderId) {
