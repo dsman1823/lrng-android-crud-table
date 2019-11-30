@@ -72,4 +72,48 @@ public class OrderRepo extends DatabaseHandler {
     }
 
 
+    public Order readSingleRecord(Integer orderId) {
+
+        Order order = null;
+
+        String sql = "SELECT * FROM orders WHERE id = " + orderId;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery(sql, null);
+
+        if (cursor.moveToFirst()) {
+
+            int id = Integer.parseInt(cursor.getString(cursor.getColumnIndex("id")));
+            Integer cost = cursor.getInt(cursor.getColumnIndex("cost"));
+            String client = cursor.getString(cursor.getColumnIndex("client"));
+            String date = cursor.getString(cursor.getColumnIndex("date"));
+            order = new Order(id, client, cost, date);
+        }
+
+        cursor.close();
+        db.close();
+
+        return order;
+    }
+
+    public boolean update(Order orderToUpdate) {
+
+        ContentValues values = new ContentValues();
+
+        values.put("cost", orderToUpdate.getCost());
+        values.put("client", orderToUpdate.getClient());
+        values.put("date", orderToUpdate.getDate());
+
+        String where = "id = ?";
+
+        String[] whereArgs = { Integer.toString(orderToUpdate.getId()) };
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        boolean updateSuccessful = db.update("orders", values, where, whereArgs) > 0;
+        db.close();
+
+        return updateSuccessful;
+    }
 }

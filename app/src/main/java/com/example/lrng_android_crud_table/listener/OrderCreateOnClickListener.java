@@ -26,7 +26,7 @@ public class OrderCreateOnClickListener implements View.OnClickListener {
         final View formElementsView = inflater.inflate(R.layout.order_input_form, null, false);
         final EditText editTextOrderClient = formElementsView.findViewById(R.id.editTextOrderClient);
         final EditText editTextOrderDate = formElementsView.findViewById(R.id.editTextOrderDate);
-        final EditText editTextOrderCost = formElementsView.findViewById(R.id.editTestOrderCost);
+        final EditText editTextOrderCost = formElementsView.findViewById(R.id.editTextOrderCost);
         new AlertDialog.Builder(context)
                 .setView(formElementsView)
                 .setTitle("Create Student")

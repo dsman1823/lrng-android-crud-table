@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.lrng_android_crud_table.listener.OrderCreateOnClickListener;
+import com.example.lrng_android_crud_table.listener.OrderItemLongClickListener;
 import com.example.lrng_android_crud_table.model.Order;
 import com.example.lrng_android_crud_table.repository.OrderRepo;
 
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
                 orderItemView.setPadding(0, 10, 0, 10);
                 orderItemView.setText(textViewContents);
                 orderItemView.setTag(Integer.toString(obj.getId()));
+                orderItemView.setOnLongClickListener(new OrderItemLongClickListener(this));
                 linearLayoutRecords.addView(orderItemView);
             }
 
