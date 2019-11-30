@@ -1,1 +1,0 @@
-# lrng-android-crud-table
