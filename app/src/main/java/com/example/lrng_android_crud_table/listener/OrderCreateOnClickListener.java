@@ -6,9 +6,12 @@ import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.lrng_android_crud_table.MainActivity;
 import com.example.lrng_android_crud_table.R;
+import com.example.lrng_android_crud_table.model.Order;
+import com.example.lrng_android_crud_table.repository.OrderRepo;
 
 public class OrderCreateOnClickListener implements View.OnClickListener {
     MainActivity context;
@@ -30,7 +33,17 @@ public class OrderCreateOnClickListener implements View.OnClickListener {
                 .setPositiveButton("Add",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
+                                Order order = new Order(editTextOrderClient.getText().toString(),
+                                        Integer.parseInt(editTextOrderCost.getText().toString()),
+                                        editTextOrderDate.getText().toString());
 
+                                boolean createSuccessful = new OrderRepo(context).create(order);
+                                if (createSuccessful) {
+                                    Toast.makeText(context, "Order information was saved.", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(context, "Unable to save Order information.", Toast.LENGTH_SHORT).show();
+                                }
+                                context.updateData();
                                 dialog.cancel();
                             }
 
